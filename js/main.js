@@ -89,8 +89,6 @@
   "use strict";
   var mount = document.getElementById("proofToast");
   if (!mount) return;
-  var isDesktop = window.matchMedia && window.matchMedia("(min-width: 901px)");
-  if (!isDesktop || !isDesktop.matches) return;
   var reducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
   var ITEMS = [
@@ -131,7 +129,6 @@
   }
 
   function show() {
-    if (!isDesktop.matches) return;
     var item = pickItem();
     var firstName = item.name.split(" ")[0];
     var color = AVATAR_COLORS[lastIndex % AVATAR_COLORS.length];
@@ -169,4 +166,26 @@
   }
 
   scheduleNext(9000, 18000); // primera aparición, algo antes para que se note pronto
+})();
+
+(function () {
+  "use strict";
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".ftab"));
+  var panels = Array.prototype.slice.call(document.querySelectorAll(".fpanel"));
+  if (!tabs.length || !panels.length) return;
+
+  function select(cat) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute("data-cat") === cat;
+      t.classList.toggle("is-on", on);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    panels.forEach(function (p) {
+      p.hidden = p.getAttribute("data-cat") !== cat;
+    });
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () { select(t.getAttribute("data-cat")); });
+  });
 })();

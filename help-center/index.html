@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Postline | Centro de ayuda</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta name="description" content="¿Dudas, un problema o una idea para Postline? Escríbenos directamente aquí.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+  :root{
+    --bg:#0d0d0d; --bg-card:#171717; --bg-card-hi:#202020;
+    --line:rgba(255,255,255,.07); --line-strong:rgba(255,255,255,.15);
+    --ink:#f5f5f0; --ink-soft:#c9c7c2; --muted:#9a9a97;
+    --orange:#ffcc00; --orange-hi:#ffd633; --orange-deep:#8a6f00;
+    --green:#4caf50; --error:#f45c4c;
+    --display:'Archivo',system-ui,sans-serif;
+    --body:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --r-md:14px; --r-btn:10px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  a{color:var(--orange);text-decoration:none}
+  a:hover{color:var(--orange-hi)}
+  :focus-visible{outline:2.5px solid var(--orange);outline-offset:3px;border-radius:4px}
+
+  .wrap{max-width:560px;margin:0 auto;padding:0 24px 80px}
+  header{padding:28px 0 8px}
+  .back{font-family:var(--mono);font-size:.8rem;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+  .back:hover{color:var(--orange)}
+
+  .brand{display:flex;align-items:center;gap:10px;margin:28px 0 6px}
+  .brand-mark{width:34px;height:34px;border-radius:9px;background:var(--orange);color:#160a04;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.05rem;flex:0 0 auto}
+  .brand-name{font-family:var(--display);font-weight:800;font-size:1.15rem}
+  .brand-name span{color:var(--orange)}
+
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4vw,2.2rem);letter-spacing:-.02em;margin:18px 0 8px}
+  .lede{color:var(--ink-soft);font-size:1rem;max-width:46ch;margin-bottom:36px}
+
+  form{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r-md);padding:24px}
+  .field{margin-bottom:18px}
+  .field:last-of-type{margin-bottom:0}
+  label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:7px}
+  .optional{color:var(--muted);font-weight:400}
+  select,input[type=text],input[type=email],textarea{
+    width:100%;background:var(--bg-card-hi);border:1px solid var(--line-strong);border-radius:8px;
+    color:var(--ink);font-family:var(--body);font-size:.92rem;padding:11px 13px;outline:none;
+    appearance:none;
+  }
+  select:focus,input:focus,textarea:focus{border-color:var(--orange)}
+  textarea{resize:vertical;min-height:110px}
+  select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239a9a97' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;background-size:16px;padding-right:36px;
+  }
+  .honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  .submit-row{margin-top:22px;display:flex;align-items:center;gap:14px}
+  button[type=submit]{
+    font:inherit;font-family:var(--display);font-weight:700;font-size:.95rem;cursor:pointer;
+    background:var(--orange);color:#160a04;border:none;border-radius:var(--r-btn);
+    padding:13px 26px;box-shadow:0 2px 0 var(--orange-deep);transition:transform .15s ease,box-shadow .15s ease,opacity .15s ease;
+  }
+  button[type=submit]:hover{background:var(--orange-hi);transform:translateY(-1px);box-shadow:0 3px 0 var(--orange-deep)}
+  button[type=submit]:disabled{opacity:.55;cursor:default;transform:none;box-shadow:0 2px 0 var(--orange-deep)}
+  .status{font-size:.85rem}
+  .status.ok{color:var(--green)}
+  .status.err{color:var(--error)}
+
+  .done{display:none;text-align:center;padding:40px 8px}
+  .done.show{display:block}
+  form.hide{display:none}
+  .done h2{font-family:var(--display);font-weight:800;font-size:1.3rem;margin:0 0 8px}
+  .done p{color:var(--ink-soft);font-size:.95rem}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="back" href="https://postline.marquesdxp.com">← postline.marquesdxp.com</a>
+      <div class="brand">
+        <div class="brand-mark">P</div>
+        <div class="brand-name">Postline <span>PRO</span></div>
+      </div>
+    </header>
+
+    <h1 id="feedback">Centro de ayuda</h1>
+    <p class="lede">¿Una duda, un problema o una idea para Postline? Escríbenos — leemos todos los mensajes.</p>
+
+    <form id="feedback-form" novalidate>
+      <div class="field">
+        <label for="category">Categoría</label>
+        <select id="category" name="category">
+          <option value="question">Duda</option>
+          <option value="problem">Problema</option>
+          <option value="feature">Idea / funcionalidad</option>
+          <option value="praise">Elogio</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="email">Tu correo <span class="optional">(para poder responderte)</span></label>
+        <input type="email" id="email" name="email" placeholder="tu@correo.com">
+      </div>
+      <div class="field">
+        <label for="contact">Otro contacto <span class="optional">(opcional)</span></label>
+        <input type="text" id="contact" name="contact" placeholder="Instagram, Discord, teléfono...">
+      </div>
+      <div class="field">
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <div class="field honeypot" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="field">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEdI7Gd1vpUMBIpE" data-theme="dark"></div>
+      </div>
+      <div class="submit-row">
+        <button type="submit" id="submit-btn">Enviar</button>
+        <span class="status" id="status"></span>
+      </div>
+    </form>
+
+    <div class="done" id="done">
+      <h2>✓ Mensaje enviado</h2>
+      <p>Gracias — lo revisamos en breve.</p>
+    </div>
+  </div>
+
+<script>
+  var ENDPOINT = "https://postline-feedback.anderson-marques.workers.dev/api/feedback";
+  var FALLBACK_EMAIL = "anderson@marquesdxp.com";
+
+  var form = document.getElementById("feedback-form");
+  var statusEl = document.getElementById("status");
+  var submitBtn = document.getElementById("submit-btn");
+  var doneEl = document.getElementById("done");
+
+  function utmSource() {
+    var params = new URLSearchParams(location.search);
+    var src = params.get("utm_source");
+    var med = params.get("utm_medium");
+    return [src ? "utm_source=" + src : "", med ? "utm_medium=" + med : ""].filter(Boolean).join("&");
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var message = document.getElementById("message").value.trim();
+    if (!message) {
+      statusEl.textContent = "Escribe un mensaje antes de enviar.";
+      statusEl.className = "status err";
+      document.getElementById("message").focus();
+      return;
+    }
+
+    var turnstileToken = typeof turnstile !== "undefined" ? turnstile.getResponse() : "";
+    if (!turnstileToken) {
+      statusEl.textContent = "Completa la verificación antes de enviar.";
+      statusEl.className = "status err";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    statusEl.textContent = "Enviando…";
+    statusEl.className = "status";
+
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        category: document.getElementById("category").value,
+        email: document.getElementById("email").value.trim(),
+        contact: document.getElementById("contact").value.trim(),
+        message: message,
+        website: document.getElementById("website").value,
+        source: utmSource(),
+        turnstileToken: turnstileToken,
+      }),
+    })
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+      .then(function (result) {
+        if (!result.ok || !result.data || !result.data.ok) throw new Error("send_failed");
+        form.classList.add("hide");
+        doneEl.classList.add("show");
+      })
+      .catch(function () {
+        submitBtn.disabled = false;
+        if (typeof turnstile !== "undefined") turnstile.reset();
+        statusEl.innerHTML = 'No se pudo enviar. Escríbenos directamente a <a href="mailto:' + FALLBACK_EMAIL + '">' + FALLBACK_EMAIL + '</a>.';
+        statusEl.className = "status err";
+      });
+  });
+</script>
+</body>
+</html>
