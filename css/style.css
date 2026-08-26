@@ -380,7 +380,9 @@ p{margin:0}
 .close p{color:var(--ink-soft);max-width:56ch;margin:0 0 16px}
 .close .price-line{font-family:var(--display);font-weight:700;color:var(--ink);font-size:1.16rem;margin:26px 0}
 .close .price-line b{color:var(--orange)}
-.close__meta{margin-top:34px;font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.close__meta{margin-top:40px;font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.close__meta span{display:block}
+.close__meta span+span{margin-top:6px}
 
 /* ==========================================================================
    FOOTER
